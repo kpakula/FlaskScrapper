@@ -1,0 +1,18 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+    <div class="jumbotron text-center">
+        <h1> Steam sales -90% </h1>
+    </div>
+
+    {% for item in items %}
+        <div class="item">
+            <h3> {{item.get_game_title()}}</h3>
+            <p> {{item.get_price()}}</p>
+            <p> {{item.get_rating()}}</p>
+            <p> {{item.get_steam_id()}}</p>
+            <p><a href={{item.get_link_steam()}} target="_blank">Check on Steam</a></p>
+        </div>
+    {% endfor %}
+
+{% endblock %}

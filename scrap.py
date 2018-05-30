@@ -2,41 +2,58 @@ from urllib.request import urlopen
 from urllib.request import Request
 from bs4 import BeautifulSoup as soup
 import re
-
-user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 " \
-             "Safari/537.36 "
-my_url = 'https://steamdb.info/sales/?min_discount=90&min_rating=0'
-
-regex_container = re.compile(r'app appimg.*')
-regexID = re.compile(r'\/.[0-9]*.\/')
+from game import Game
 
 
-client = Request(my_url, headers={"User-Agent": user_agent})
-page_html = urlopen(client).read()
+class Scrap:
 
-page_soup = soup(page_html, "html.parser")
-containers = page_soup.findAll("tr", {"class": regex_container})
+    def __init__(self):
+        self.user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) " \
+                 "Chrome/60.0.3112.113 Safari/537.36 "
+        self.my_url = 'https://steamdb.info/sales/?min_discount=90&min_rating=0'
+        self.regex_container = re.compile(r'app appimg.*')
+        self.regexID = re.compile(r'\/.[0-9]*.\/')
+        self.filename = "discount.csv"
+        self.objects = []
 
-filename = "discount.csv"
-f = open(filename, "w")
+    def initialization(self):
+        client = Request(self.my_url, headers={"User-Agent": self.user_agent})
+        page_html = urlopen(client).read()
+        page_soup = soup(page_html, "html.parser")
+        containers = page_soup.findAll("tr", {"class": self.regex_container})
 
-headers = "id, title, price, rating, discount, link_steam, steam_id\n"
-f.write(headers)
+        try:
+            f = open(self.filename, "w")
 
-id = 1;
+            headers = "id, title, price, rating, discount, link_steam, steam_id\n"
+            f.write(headers)
 
-for container in containers:
-    link_steam = container.a['href']
-    steam_id_regex = regexID.findall(link_steam)
-    steam_id = (steam_id_regex[0])[1:-1]
-    game_title = container.find("a", {"class": "b"}).text
-    discount = '90%'
-    info_container = container.findAll("td")
-    price = info_container[4].text
-    rating = info_container[5].text
+            id = 1;
 
+            for container in containers:
+                game = Game()
+                # link_steam = container.a['href']
+                game.set_link_steam(container.a['href'])
+                steam_id_regex = self.regexID.findall(game.get_link_steam())
+                game.set_steam_id((steam_id_regex[0])[1:-1])
+                game.set_game_title(container.find("a", {"class": "b"}).text)
+                game.set_discount('90%')
 
-    f.write(str(id) + "," + game_title.replace(",", ".") + "," + price + "," + rating + "," + discount + "," + link_steam + "," + steam_id + "\n")
-    id = id + 1
+                info_container = container.findAll("td")
+                game.set_price(info_container[4].text)
+                game.set_rating(info_container[5].text)
+                game.set_id(str(id))
 
-f.close()
+                f.write(game.get_id() + "," + game.get_game_title() + "," + game.get_price() + "," + game.get_price() +
+                        "," + game.get_rating() + "," + game.get_link_steam() + "," + game.get_steam_id() + "\n")
+                id = id + 1
+                self.objects.append(game)
+
+            f.close()
+
+        except PermissionError:
+            print("The .csv file is open")
+
+    def get_objects(self):
+        return self.objects
+

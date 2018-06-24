@@ -1,5 +1,6 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, send_file
 from scrap import Scrap
+import strings
 app = Flask(__name__)
 
 name = "Flask App"
@@ -22,6 +23,15 @@ def about():
 def pubg():
     return render_template('pubg.html')
 
+
+@app.route('/return-file/')
+def return_file():
+    return send_file(strings.send_file_path, as_attachment=True)
+
+
+@app.route('/file-downloads/')
+def file_download():
+    return render_template('downloads.html')
 
 
 if __name__ == '__main__':

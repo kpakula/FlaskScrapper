@@ -2,6 +2,8 @@ from urllib.request import urlopen
 from urllib.request import Request
 from bs4 import BeautifulSoup as soup
 import re
+import os.path
+import strings
 from game import Game
 
 
@@ -13,7 +15,9 @@ class Scrap:
         self.my_url = 'https://steamdb.info/sales/?min_discount=90&min_rating=0'
         self.regex_container = re.compile(r'app appimg.*')
         self.regexID = re.compile(r'\/.[0-9]*.\/')
-        self.filename = "discount.csv"
+        self.filename = strings.filename
+        self.save_path = strings.save_path
+        self.complete_path = os.path.join(self.save_path, self.filename)
         self.objects = []
 
 
@@ -54,7 +58,7 @@ class Scrap:
             i += 1
 
     def getCSV(self):
-        f = open(self.filename, "w")
+        f = open(self.complete_path, "w")
         headers = "id, title, price, rating, discount, link_steam, steam_id\n"
         f.write(headers)
         i = 0

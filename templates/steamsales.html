@@ -2,7 +2,7 @@
 
 {% block body %}
     <div class="jumbotron text-center">
-        <h1> Steam sales -90% </h1>
+        <h1> The best steam sales -90% </h1>
     </div>
 
     {% for item in items %}
@@ -20,6 +20,7 @@
                     <a href="{{item.get_link_steam()}}"  target="_blank" class="btn btn-primary">Check on Steam</a>
                 </div>
             </div>
+            <div style="padding-bottom: 30px;"></div>
         </div>
     {% endfor %}
 

@@ -10,6 +10,20 @@
 <div>
   <h3>---The most expensive item---</h3>
 </div>
-{% include 'includes/card.html' %}
+        <div class="item">
+            <div class="card text-white bg-primary mb-3" style="width: 18rem;">
+                <div class="view overlay">
+                    <img class="card-img-top" src={{item.image_link}} alt="Card image cap">
+                    <a href="#!">
+                        <div class="mask rgba-white-slight"></div>
+                    </a>
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">{{item.item_name}}</h4>
+                    <br class="card-text">Game: {{item.game_title}} </br>Quantity: {{item.quantity}} </br>Price: {{item.price}}</p>
+                </div>
+            </div>
+            <div style="padding-bottom: 30px;"></div>
+        </div>
 
 {% endblock %}

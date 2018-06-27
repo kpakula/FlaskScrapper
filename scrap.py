@@ -5,14 +5,15 @@ import re
 import os.path
 import strings
 from game import Game
+import scrapstrings as connect_data
+import _thread
 
 
 class Scrap:
 
     def __init__(self):
-        self.user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) " \
-                 "Chrome/60.0.3112.113 Safari/537.36 "
-        self.my_url = 'https://steamdb.info/sales/?min_discount=90&min_rating=0'
+        self.user_agent = connect_data.user_agent
+        self.my_url = connect_data.steam_db_url
         self.regex_container = re.compile(r'app appimg.*')
         self.regexID = re.compile(r'\/.[0-9]*.\/')
         self.filename = strings.filename
@@ -41,18 +42,18 @@ class Scrap:
 
             game.set_price(info_container[4].text)
             game.set_rating(info_container[5].text)
-            game.set_id(str(id))
+            game.set_identity(str(id))
 
             id = id + 1
             obj.append(game)
         self.sortbyRating(obj)
-        self.getCSV()
+        _thread.start_new_thread(self.getCSV, ())
 
     def sortbyRating(self, obj):
         obj.sort(key=lambda x: x.rating, reverse=True)
         game = Game()
         i = 0
-        while i < 100:
+        while i < 99:
             game = obj[i]
             self.objects.append(game)
             i += 1
@@ -65,7 +66,7 @@ class Scrap:
         game = Game()
         while i < len(self.objects):
             game = self.objects[i]
-            f.write(game.get_id() + "," + game.get_game_title() + "," + game.get_price() + "," + game.get_rating() +  "," + game.get_discount() + "," + game.get_link_steam() + "," + game.get_steam_id() + "\n")
+            f.write(game.get_identity() + "," + game.get_game_title() + "," + game.get_price() + "," + game.get_rating() +  "," + game.get_discount() + "," + game.get_link_steam() + "," + game.get_steam_id() + "\n")
             i += 1
         f.close()
 

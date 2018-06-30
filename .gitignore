@@ -1,3 +1,6 @@
 discount.csv
-strings.py
-
+commonitems.csv
+currentplayers.csv
+strings/dbdata.py
+strings/scrapstrings.py
+strings/strings.py

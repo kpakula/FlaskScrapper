@@ -1,7 +1,8 @@
 class Game:
     # A class to storing game data
 
-    def __init__(self, identity ="0", game_title = "-", price ="-", rating = "-", link_steam ="-", steam_id ="-"):
+    def __init__(self, identity="0", game_title="-", price="-", rating="-", link_steam="-", steam_id="-",
+                 image_link="-"):
         self.discount = "90%"
         self.identity = identity
         self.game_title = game_title.replace(",", ".")
@@ -9,8 +10,13 @@ class Game:
         self.rating = rating
         self.link_steam = link_steam
         self.steam_id = steam_id
+        self.image_link = image_link
 
     # getters
+
+    def get_image_link(self):
+        return self.image_link
+
     def get_discount(self):
         return self.discount
 
@@ -33,6 +39,9 @@ class Game:
         return self.steam_id
 
     # setters
+    def set_image_link(self, image_link):
+        self.image_link = image_link
+
     def set_discount(self, discount):
         self.discount = discount
 
@@ -53,4 +62,3 @@ class Game:
 
     def set_steam_id(self, steam_id):
         self.steam_id = steam_id
-

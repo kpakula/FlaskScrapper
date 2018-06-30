@@ -2,25 +2,23 @@ from urllib.request import urlopen
 from urllib.request import Request
 from bs4 import BeautifulSoup as soup
 import re
-import os.path
-import strings
-from game import Game
-import scrapstrings as connect_data
+from strings import strings, scrapstrings as connect_data
+from items.Game import Game
 import _thread
+from extensions.CSV import CSVMaker
 
 
 class Scrap:
+    headers = "id, title, price, rating, discount, link_steam, steam_id\n"
 
     def __init__(self):
         self.user_agent = connect_data.user_agent
         self.my_url = connect_data.steam_db_url
         self.regex_container = re.compile(r'app appimg.*')
         self.regexID = re.compile(r'\/.[0-9]*.\/')
-        self.filename = strings.filename
+        self.filename = strings.filename_sales
         self.save_path = strings.save_path
-        self.complete_path = os.path.join(self.save_path, self.filename)
         self.objects = []
-
 
     def initialization(self):
         client = Request(self.my_url, headers={"User-Agent": self.user_agent})
@@ -47,7 +45,9 @@ class Scrap:
             id = id + 1
             obj.append(game)
         self.sortbyRating(obj)
-        _thread.start_new_thread(self.getCSV, ())
+
+        c = CSVMaker(self.headers, self.objects, self.filename)
+        _thread.start_new_thread(c.makeCSV, (1,))
 
     def sortbyRating(self, obj):
         obj.sort(key=lambda x: x.rating, reverse=True)
@@ -57,18 +57,6 @@ class Scrap:
             game = obj[i]
             self.objects.append(game)
             i += 1
-
-    def getCSV(self):
-        f = open(self.complete_path, "w")
-        headers = "id, title, price, rating, discount, link_steam, steam_id\n"
-        f.write(headers)
-        i = 0
-        game = Game()
-        while i < len(self.objects):
-            game = self.objects[i]
-            f.write(game.get_identity() + "," + game.get_game_title() + "," + game.get_price() + "," + game.get_rating() +  "," + game.get_discount() + "," + game.get_link_steam() + "," + game.get_steam_id() + "\n")
-            i += 1
-        f.close()
 
     def get_objects(self):
         return self.objects

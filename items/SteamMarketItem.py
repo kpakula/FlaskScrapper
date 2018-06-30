@@ -1,11 +1,25 @@
 class SteamItem:
 
-    def __init__(self, item_name="-", game_title="-", quantity="-", price="-", image_link="-"):
+    def __init__(self, item_name="-", game_title="-", quantity="-", price="-", image_link="-", link_steam="-"):
         self._item_name = item_name
         self._game_title = game_title
         self._quantity = quantity
         self._price = price
         self._image_link = image_link
+        self._link_steam = link_steam
+
+
+    @property
+    def link_steam(self):
+        return self._link_steam
+
+    @link_steam.setter
+    def link_steam(self, link_steam):
+        self._link_steam = link_steam
+
+    @link_steam.deleter
+    def link_steam(self):
+        del self._link_steam
 
     @property
     def item_name(self):

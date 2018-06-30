@@ -1,5 +1,40 @@
 {% extends 'layout.html' %}
 
 {% block body %}
-    <h1>Playerunknown's Battlegrounds</h1>
+<div class="jumbotron text-center" style="background-color:#006bff">
+    <h3>Current player count</h3>
+</div>
+
+<div class="container" align="center" style="padding-bottom: 10px">
+    <a href="{{link}}" target="_blank">
+        <button type="button" class="btn btn-danger">Download CSV</button>
+    </a>
+</div>
+
+<div class="container">
+    <table class="table table-striped table-dark">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Steam ID</th>
+            <th scope="col">Game title</th>
+            <th scope="col">Current</th>
+            <th scope="col">24H Peak</th>
+            <th scope="col">All-time peak</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in items %}
+        <tr>
+            <td>{{item.id}}</td>
+            <td>{{item.steam_id}}</td>
+            <td>{{item.game_title}}</td>
+            <td>{{item.current_users}}</td>
+            <td>{{item.peak24}}</td>
+            <td>{{item.alltimepeak}}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}

@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title>FlaskApp</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
-        <link rel="shortcut icon" href="../static/favicon.ico" />
-    </head>
-    <body>
+<head>
+    <meta charset="utf-8">
+    <title>FlaskApp</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+    <link rel="shortcut icon" href="../static/favicon.ico"/>
+    <link href="curentplayerssheet.css" rel="stylesheet" type="text/css">
+</head>
+<body>
 
-    {% include 'includes/navbar.html' %}
+{% include 'includes/navbar.html' %}
 
-    <div class="container" align="center">
+<div class="container" align="center">
     {% block body %}{% endblock %}
-    </div>
+</div>
 
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 
-    </body>
+</body>
 </html>

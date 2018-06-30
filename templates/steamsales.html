@@ -1,36 +1,56 @@
 {% extends 'layout.html' %}
 
 {% block body %}
-    <div class="jumbotron text-center" style="background-color:#007bff">
-        <h1> The best steam sales -90% </h1>
-    </div>
-    <div class="container" align="center" style="padding-bottom: 10px">
-        <a href="/return-file/" target="_blank"><button type="button" class="btn btn-danger">Download CSV</button></a>
-    </div>
+<div class="jumbotron text-center" style="background-color:#007bff">
+    <h1> The best steam sales -90% </h1>
+</div>
 
-    <div class="container-fluid">
-        <div class="row">
-    {% for item in items %}
-            <div class="col-sm-4">
+<div class="container" align="center" style="padding-bottom: 10px">
+    <a href="{{link}}" target="_blank">
+        <button type="button" class="btn btn-danger">Download CSV</button>
+    </a>
+</div>
 
-                <div class="card">
-                    <img class="card-img-top img-fluid" src="../static/treee.JPG" alt="Card image cap">
-                    <div class="card-block">
-                        <h5 class="card-title">{{item.get_game_title()}}</h5>
-                        <p class="card-text">STEAM ID: {{item.get_steam_id()}}</p>
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Price: {{item.get_price()}}</li>
-                        <li class="list-group-item">Rating: {{item.get_rating()}}</li>
-                        <li class="list-group-item">Discount: {{item.get_discount()}}</li>
-                    </ul>
-                    <div class="card-block">
-                        <a href="{{item.get_link_steam()}}"  target="_blank" class="btn btn-primary btn-block">Check on Steam</a>
-                    </div>
+
+<div class="container-fluid">
+    <div class="row">
+        {% for item in items %}
+        <div class="col-sm-4">
+
+            <div class="card">
+                <a href="{{item.get_link_steam()}}" target="_blank">
+                    <img class="card-img-top img-fluid" src="../static/images/STEAM.png" alt="Card image cap">
+                </a>
+                <div class="card-body">
+                    <h4 class="card-title">{{item.get_game_title()}}</h4>
+                    <p class="card-text" style="font-size: 15px;">STEAM ID: {{item.get_steam_id()}}</p>
                 </div>
-                <div style="padding-bottom: 30px;"></div>
+
+                <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+                <div class="list-group list-group-mine">
+                    <a class="list-group-item list-group-item-info" href="#"><strong>Price:
+                        {{item.get_price()}}</strong></a>
+                    <a class="list-group-item list-group-item-success" href="#"><strong>Rating:
+                        {{item.get_rating()}}</strong></a>
+                    <a class="list-group-item list-group-item-info" href="#"><strong>Discount:
+                        {{item.get_discount()}}</strong></a>
+                    <a href="{{item.get_link_steam()}}" target="_blank" class="btn btn-primary btn-block"><strong>Check
+                        on Steam</strong></a>
+                </div>
+
+                <!--<ul class="list-group list-group-flush">-->
+                <!--<li class="list-group-item">Price: {{item.get_price()}}</li>-->
+                <!--<li class="list-group-item">Rating: {{item.get_rating()}}</li>-->
+                <!--<li class="list-group-item">Discount: {{item.get_discount()}}</li>-->
+                <!--</ul>-->
+
+                <!--<div class="card-block">-->
+                <!--<a href="{{item.get_link_steam()}}"  target="_blank" class="btn btn-primary btn-block">Check on Steam</a>-->
+                <!--</div>-->
             </div>
-    {% endfor %}
+            <div style="padding-bottom: 30px;"></div>
         </div>
+        {% endfor %}
     </div>
+</div>
 {% endblock %}

@@ -8,22 +8,29 @@
 
 
 <div>
-  <h3>---The most expensive item---</h3>
+    <h3>---The most common item---</h3>
 </div>
-        <div class="item">
-            <div class="card text-white bg-primary mb-3" style="width: 18rem;">
-                <div class="view overlay">
-                    <img class="card-img-top" src={{item.image_link}} alt="Card image cap">
-                    <a href="#!">
-                        <div class="mask rgba-white-slight"></div>
-                    </a>
-                </div>
-                <div class="card-body">
-                    <h4 class="card-title">{{item.item_name}}</h4>
-                    <br class="card-text">Game: {{item.game_title}} </br>Quantity: {{item.quantity}} </br>Price: {{item.price}}</p>
-                </div>
-            </div>
-            <div style="padding-bottom: 30px;"></div>
-        </div>
 
+<div class="item">
+    <div class="card text-white bg-primary mb-3" style="width: 18rem;">
+        <div class="view overlay">
+            <img class="card-img-top" src={{item.image_link}} alt="Card image cap">
+            <a href="#!">
+                <div class="mask rgba-white-slight"></div>
+            </a>
+        </div>
+        <div class="card-body">
+            <h4 class="card-title">{{item.item_name}}</h4>
+            <br class="card-text">Game: {{item.game_title}} </br>Quantity: {{item.quantity}} </br>Price:
+            {{item.price}}</p>
+        </div>
+    </div>
+    <div style="padding-bottom: 30px;"></div>
+</div>
+
+<div class="container" align="center" style="padding-bottom: 10px">
+    <a href="{{link}}" target="_blank">
+        <button type="button" class="btn btn-danger">Download CSV</button>
+    </a>
+</div>
 {% endblock %}

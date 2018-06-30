@@ -1,10 +1,10 @@
 from urllib.request import Request
 from urllib.request import urlopen
 from bs4 import BeautifulSoup as soup
-from SteamMarketItem import SteamItem
+from items.SteamMarketItem import SteamItem
 from strings import strings, scrapstrings as connect_data
 import _thread
-from CSV import CSVMaker
+from extensions.CSV import CSVMaker
 
 
 class SteamScrap:
